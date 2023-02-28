@@ -4,20 +4,20 @@ import L3.DataFromRoom;
 import L3.FaceReaction;
 import L3.Noise;
 
-public class MissBockReaction implements HumanReaction{
+public class MissBockReaction implements HumanReaction {
 
     private FaceReaction faceReaction;
     private Noise noise;
 
     @Override
-    public int start(DataFromRoom dateFromRoom){
+    public int start(DataFromRoom dateFromRoom) {
         noise = dateFromRoom.noise;
         faceReaction = dateFromRoom.faceReaction;
-        return(excite()+settleDown());
+        return (excite() + settleDown());
     }
 
 
-    private int settleDown(){
+    private int settleDown() {
         int change_level_of_emotionality = 0;
 
         if (faceReaction == FaceReaction.CALMFACE) {
@@ -31,13 +31,13 @@ public class MissBockReaction implements HumanReaction{
     }
 
 
-    private int excite(){
+    private int excite() {
         int change_level_of_emotionality = 0;
 
         if (faceReaction == FaceReaction.SMILE) {
             change_level_of_emotionality += 2;
         }
-        if (noise == Noise.LAUGHTER){
+        if (noise == Noise.LAUGHTER) {
             change_level_of_emotionality += 2;
         }
         if (noise == Noise.GROAN) {
@@ -47,33 +47,31 @@ public class MissBockReaction implements HumanReaction{
     }
 
     @Override
-    public int hashCode(){
-        return(21);
+    public int hashCode() {
+        return (21);
     }
 
     @Override
-    public String toString(){
-        return("Это объект missBockReaction, который реагирует на происходящее и возвращает уровень эмоциональности. Имеет хэш: " + hashCode());
+    public String toString() {
+        return ("Это объект missBockReaction, который реагирует на происходящее и возвращает уровень эмоциональности. Имеет хэш: " + hashCode());
     }
+
     @Override
-    public boolean equals(Object obj){
-        if(hashCode()/10 == obj.hashCode()/10){
+    public boolean equals(Object obj) {
+        if (hashCode() / 10 == obj.hashCode() / 10) {
             System.out.println("Объекты являются наследниками одного класса");
-        }
-        else {
+        } else {
             System.out.println("Объекты не являются наследниками одного класса");
         }
-        if(hashCode()%10 == obj.hashCode()%10){
+        if (hashCode() % 10 == obj.hashCode() % 10) {
             System.out.println("Объекты принадлежат одному и тому же человеку");
-        }
-        else {
+        } else {
             System.out.println("Объекты не принадлежат одному и тому же человеку");
         }
-        if(hashCode() == obj.hashCode()){
-            return(true);
-        }
-        else{
-            return(false);
+        if (hashCode() == obj.hashCode()) {
+            return (true);
+        } else {
+            return (false);
         }
     }
 }

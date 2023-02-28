@@ -6,10 +6,10 @@ import L3.Noise;
 
 public class SmallBoyReaction implements HumanReaction {
 
-    int number_of_cakes;
-    int start_number_of_cakes;
-    FaceReaction faceReaction;
-    Noise noise;
+    private int number_of_cakes;
+    private int start_number_of_cakes;
+    private FaceReaction faceReaction;
+    private Noise noise;
 
     @Override
     public int start(DataFromRoom dataFromRoom){

@@ -2,11 +2,12 @@ package L3;
 
 import L3.Humans.MissBock;
 import L3.Humans.SmallBoy;
+
 import java.util.Random;
 
 public class Room {
 
-//    создадим класс "обстановка в комнате"
+    //    создадим класс "обстановка в комнате"
     private ConditionInRoom conditionInRoom = new ConditionInRoom();
 //    private Room.ConditionInRoom conditionInRoom = new Room.ConditionInRoom();
 
@@ -19,15 +20,13 @@ public class Room {
     public void startActionInRoom() {
 
 
-
-        while (conditionInRoom.numberOfCakes != 0){
+        while (conditionInRoom.numberOfCakes != 0) {
 
 //            карлсон решает, взять ли пирожок
-            if(conditionInRoom.isCarlsonGiveCake()){
+            if (conditionInRoom.isCarlsonGiveCake()) {
                 conditionInRoom.carlsonGiveCake();
                 System.out.println("Карлсон взял пирожок");
-            }
-            else {
+            } else {
                 System.out.println("Карлсон не взял пирожок");
             }
 //            вызывается Малыш, которому передаются данные о комнате,
@@ -40,23 +39,23 @@ public class Room {
 
             System.out.println("");
 
-            if(conditionInRoom.missBock.isMissBockTurn()){
+            if (conditionInRoom.missBock.isMissBockTurn()) {
                 System.out.println(conditionInRoom.missBock.getHumanName() + " резко поворачивается. Карлсон был спален!!!");
                 conditionInRoom.carlsonSpalen();
             }
 
         }
-        if(conditionInRoom.isCarlsonGoOut()){
+        if (conditionInRoom.isCarlsonGoOut()) {
             System.out.println("Карлсон ушёл с пирожками");
         }
     }
 
-//=============================================================
+    //=============================================================
 //    Вложенный non-static класс
 //    обстановка в комнате
-    private class ConditionInRoom{
+    private class ConditionInRoom {
 
-//        все данные о комнате
+        //        все данные о комнате
         private int numberOfCakes = 7;
         private final int startNumberOfCakes = numberOfCakes;
         private Noise noiseInRoom = Noise.SILENCE;
@@ -67,9 +66,9 @@ public class Room {
         private MissBock missBock;
 
 
-//    метод предназначен для сбора всех данных о комнате в объект класса Data,
+        //    метод предназначен для сбора всех данных о комнате в объект класса Data,
 //    котрорый потом передаётся в оюъект одного из наследников класса Human
-        public DataFromRoom getDataFromRoom(){
+        public DataFromRoom getDataFromRoom() {
             DataFromRoom dataFromRoom = new DataFromRoom();
             dataFromRoom.faceReaction = faceInRoom;
             dataFromRoom.noise = noiseInRoom;
@@ -78,35 +77,34 @@ public class Room {
             return dataFromRoom;
         }
 
-//    метод устанавливает изменения в комнате, которые произошли из-за действий людей в ней
-        public void setChanges(ChangesMadeByPeople changes){
+        //    метод устанавливает изменения в комнате, которые произошли из-за действий людей в ней
+        public void setChanges(ChangesMadeByPeople changes) {
             faceInRoom = changes.faceReaction;
             noiseInRoom = changes.noise;
         }
 
-        public void addPersons(MissBock missBock, SmallBoy smallBoy){
+        public void addPersons(MissBock missBock, SmallBoy smallBoy) {
             this.missBock = missBock;
             this.smallBoy = smallBoy;
         }
 
-        public void carlsonGiveCake(){
+        public void carlsonGiveCake() {
             numberOfCakes--;
         }
 
-        public boolean isCarlsonGiveCake(){
+        public boolean isCarlsonGiveCake() {
             return new Random().nextBoolean();
         }
 
-        public void carlsonSpalen(){
+        public void carlsonSpalen() {
             isCarlsonSpalen = true;
             numberOfCakes = 0;
         }
 
-        public boolean isCarlsonGoOut(){
-            if(isCarlsonSpalen == false & numberOfCakes == 0){
+        public boolean isCarlsonGoOut() {
+            if (isCarlsonSpalen == false & numberOfCakes == 0) {
                 return true;
-            }
-            else {
+            } else {
                 return false;
             }
         }

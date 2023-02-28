@@ -5,18 +5,17 @@ import L3.ChangesMadeByPeople;
 import L3.DataFromRoom;
 import L3.Reaction.MissBockReaction;
 
-public class MissBock extends Human{
+public class MissBock extends Human {
 
 
-//    поле уровня эмоциональности
+    //    поле уровня эмоциональности
     private int level_of_emotionality = 0;
     private boolean missBockTurn = false;
 
     @Override
-    public ChangesMadeByPeople looksListensReacts(DataFromRoom dataFromRoom){
+    public ChangesMadeByPeople looksListensReacts(DataFromRoom dataFromRoom) {
         MissBockReaction missBockReaction = new MissBockReaction();
         MissBockAction missBockAction = new MissBockAction();
-
 
 
 //        запускаем реакцию Фрекен Бок, что получить изменение уровня эмоциональности
@@ -26,7 +25,7 @@ public class MissBock extends Human{
         ChangesMadeByPeople changesMadeByPeople = missBockAction.start(level_of_emotionality, getHumanName());
 
 //        если эмоциональность выще 5 поворацивается
-        if(level_of_emotionality > 5){
+        if (level_of_emotionality > 5) {
             missBockTurn = true;
         }
 
@@ -34,28 +33,28 @@ public class MissBock extends Human{
         return changesMadeByPeople;
     }
 
-//    метод вызываемый из room для проверки повернулась ли Мисс Бок
-    public boolean isMissBockTurn(){
-        if(missBockTurn == true){
+    //    метод вызываемый из room для проверки повернулась ли Мисс Бок
+    public boolean isMissBockTurn() {
+        if (missBockTurn == true) {
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
 
 
     @Override
-    public int hashCode(){
-        return(11); //1 - Human, 1 - MissBock
+    public int hashCode() {
+        return (11); //1 - Human, 1 - MissBock
     }
 
     @Override
-    public String toString(){
-        return("Это объект missBock, который реагирует на происходящее и в зависимости от этого принимает какие-то действия и сам изменяет среду. Может повернуться и спалить Карлсона. Имеет хэш: " + hashCode());
+    public String toString() {
+        return ("Это объект missBock, который реагирует на происходящее и в зависимости от этого принимает какие-то действия и сам изменяет среду. Может повернуться и спалить Карлсона. Имеет хэш: " + hashCode());
     }
+
     @Override
-    public String getHumanName(){
+    public String getHumanName() {
         return "";
     }
 }

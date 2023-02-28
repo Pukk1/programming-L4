@@ -5,11 +5,9 @@ import L3.ChangesMadeByPeople;
 import L3.DataFromRoom;
 import L3.Reaction.SmallBoyReaction;
 
-public class SmallBoy extends Human{
+public class SmallBoy extends Human {
     //    поле уровня эмоциональности
     private int level_of_emotionality = 0;
-
-
 
 
     @Override
@@ -26,17 +24,19 @@ public class SmallBoy extends Human{
 //        возвращаем измененния в состоянии комнаты
         return changesMadeByPeople;
     }
+
     @Override
-    public int hashCode(){
-        return(10);
+    public int hashCode() {
+        return (10);
     }
 
     @Override
-    public String toString(){
-        return("Это объект smallBoy, который реагирует на происходящее и в зависимости от этого принимает какие-то действия и сам изменяет среду. Имеет хэш: " + hashCode());
+    public String toString() {
+        return ("Это объект smallBoy, который реагирует на происходящее и в зависимости от этого принимает какие-то действия и сам изменяет среду. Имеет хэш: " + hashCode());
     }
+
     @Override
-    public String getHumanName(){
+    public String getHumanName() {
         return "";
     }
 }

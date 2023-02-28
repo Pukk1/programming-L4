@@ -9,12 +9,4 @@ class MissBockTest {
     @Test
     void looksListensReacts() {
     }
-
-    @Test
-    void isMissBockTurn() {
-    }
-
-    @Test
-    void getHumanName() {
-    }
 }

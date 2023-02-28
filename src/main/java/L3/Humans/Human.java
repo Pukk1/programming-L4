@@ -5,9 +5,7 @@ import L3.DataFromRoom;
 
 public abstract class Human {
 
-    public abstract String getHumanName();
-
-    public abstract ChangesMadeByPeople looksListensReacts(DataFromRoom dataFromRoom);
+    public abstract ChangesMadeByPeople looksListensReacts(DataFromRoom dataFromRoom, String name);
 
     @Override
     public boolean equals(Object obj) {

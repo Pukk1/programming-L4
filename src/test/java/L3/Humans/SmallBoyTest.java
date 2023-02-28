@@ -8,9 +8,6 @@ class SmallBoyTest {
 
     @Test
     void looksListensReacts() {
-    }
 
-    @Test
-    void getHumanName() {
     }
 }

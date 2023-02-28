@@ -13,7 +13,7 @@ public class MissBock extends Human {
     private boolean missBockTurn = false;
 
     @Override
-    public ChangesMadeByPeople looksListensReacts(DataFromRoom dataFromRoom) {
+    public ChangesMadeByPeople looksListensReacts(DataFromRoom dataFromRoom, String missBockName) {
         MissBockReaction missBockReaction = new MissBockReaction();
         MissBockAction missBockAction = new MissBockAction();
 
@@ -22,7 +22,7 @@ public class MissBock extends Human {
         level_of_emotionality = level_of_emotionality + missBockReaction.start(dataFromRoom);
 
 //        запускаем действия, производимые Фрекен Бок, которые возвращают изменения в состоянии комнаты
-        ChangesMadeByPeople changesMadeByPeople = missBockAction.start(level_of_emotionality, getHumanName());
+        ChangesMadeByPeople changesMadeByPeople = missBockAction.start(level_of_emotionality, missBockName);
 
 //        если эмоциональность выще 5 поворацивается
         if (level_of_emotionality > 5) {
@@ -51,10 +51,5 @@ public class MissBock extends Human {
     @Override
     public String toString() {
         return ("Это объект missBock, который реагирует на происходящее и в зависимости от этого принимает какие-то действия и сам изменяет среду. Может повернуться и спалить Карлсона. Имеет хэш: " + hashCode());
-    }
-
-    @Override
-    public String getHumanName() {
-        return "";
     }
 }

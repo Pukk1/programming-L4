@@ -88,17 +88,17 @@ public class Main {
             } finally {
                 if (error == false) {
                     new Room(new MissBock() {
-                        @Override
-                        public String getHumanName() {
-                            return mN;
-                        }
+//                        @Override
+//                        public String getHumanName() {
+//                            return mN;
+//                        }
                     },
                             new SmallBoy() {
-                                @Override
-                                public String getHumanName() {
-                                    return bN;
-                                }
-                            }, startNumberOfCakesInRoom).startActionInRoom();
+//                                @Override
+//                                public String getHumanName() {
+//                                    return bN;
+//                                }
+                            }, startNumberOfCakesInRoom).startActionInRoom(missBockName, smallBoyName);
                 } else {
                     System.out.println("Программа завершилась ошибкой.");
                     for (int i = 0; i < numberOfMassiveNegativeValueOfCakesExceptionElements; i++) {

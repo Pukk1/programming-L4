@@ -17,7 +17,7 @@ public class Room {
         conditionInRoom.numberOfCakes = startNumberOfCakesInRoom;
     }
 
-    public void startActionInRoom() {
+    public void startActionInRoom(String missBockName, String smallBoyName) {
 
 
         while (conditionInRoom.numberOfCakes != 0) {
@@ -32,15 +32,15 @@ public class Room {
 //            вызывается Малыш, которому передаются данные о комнате,
 //            после возвращаемое малышом значение (Changes) передаётся в
 //            метод, устанавливающий изменения в комнате
-            conditionInRoom.setChanges(conditionInRoom.smallBoy.looksListensReacts(conditionInRoom.getDataFromRoom()));
+            conditionInRoom.setChanges(conditionInRoom.smallBoy.looksListensReacts(conditionInRoom.getDataFromRoom(), smallBoyName));
 
 //            аналогично предыдущему пункту
-            conditionInRoom.setChanges(conditionInRoom.missBock.looksListensReacts(conditionInRoom.getDataFromRoom()));
+            conditionInRoom.setChanges(conditionInRoom.missBock.looksListensReacts(conditionInRoom.getDataFromRoom(), missBockName));
 
             System.out.println("");
 
             if (conditionInRoom.missBock.isMissBockTurn()) {
-                System.out.println(conditionInRoom.missBock.getHumanName() + " резко поворачивается. Карлсон был спален!!!");
+                System.out.println(missBockName + " резко поворачивается. Карлсон был спален!!!");
                 conditionInRoom.carlsonSpalen();
             }
 

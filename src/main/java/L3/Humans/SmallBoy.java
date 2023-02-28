@@ -11,7 +11,7 @@ public class SmallBoy extends Human {
 
 
     @Override
-    public ChangesMadeByPeople looksListensReacts(DataFromRoom dataFromRoom) {
+    public ChangesMadeByPeople looksListensReacts(DataFromRoom dataFromRoom, String smallBoyName) {
         SmallBoyReaction smallBoyReaction = new SmallBoyReaction();
         SmallBoyAction smallBoyAction = new SmallBoyAction();
 
@@ -19,7 +19,7 @@ public class SmallBoy extends Human {
         level_of_emotionality = level_of_emotionality + smallBoyReaction.start(dataFromRoom);
 
 //        запускаем действие малыша, чтобы получить их результатом изменения в комнате
-        ChangesMadeByPeople changesMadeByPeople = smallBoyAction.start(level_of_emotionality, getHumanName());
+        ChangesMadeByPeople changesMadeByPeople = smallBoyAction.start(level_of_emotionality, smallBoyName);
 
 //        возвращаем измененния в состоянии комнаты
         return changesMadeByPeople;
@@ -33,10 +33,5 @@ public class SmallBoy extends Human {
     @Override
     public String toString() {
         return ("Это объект smallBoy, который реагирует на происходящее и в зависимости от этого принимает какие-то действия и сам изменяет среду. Имеет хэш: " + hashCode());
-    }
-
-    @Override
-    public String getHumanName() {
-        return "";
     }
 }

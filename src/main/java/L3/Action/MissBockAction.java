@@ -6,7 +6,7 @@ import L3.Noise;
 
 public class MissBockAction implements HumanAction {
     private ChangesMadeByPeople changes = new ChangesMadeByPeople();
-    String name;
+    private String name;
 
     @Override
     public ChangesMadeByPeople start(int level_of_emotionality, String name) {

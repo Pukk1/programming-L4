@@ -26,8 +26,6 @@ public class Main {
             public int startNumberOfCakesInRoom() {
                 Scanner scan = new Scanner(System.in);
                 System.out.println("Сколько изначально было пирожков");
-                https:
-//drive.google.com/drive/folders/1JjEhaeYTgelwwVKuEHEV-io17qahks-U?usp=sharing
                 return scan.nextInt();
             }
         }

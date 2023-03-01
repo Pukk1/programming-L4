@@ -31,15 +31,15 @@ class MissBockActionTest {
 
     @ParameterizedTest
     @CsvSource({
-            "3,MissBock,BLUSH,GROAN,MissBock краснеет MissBock охает",
-            "2,MissBock,BLUSH,SILENCE,MissBock краснеет Наступает тишина",
-            "1,MissBock,CALMFACE,SILENCE,MissBock спокойна и пьёт кофе Наступает тишина",
-            "0,MissBock,CALMFACE,SILENCE,MissBock спокойна и пьёт кофе Наступает тишина",
-            "-1,MissBock,CALMFACE,SILENCE,MissBock спокойна и пьёт кофе Наступает тишина",
+            "3,BLUSH,GROAN,MissBock краснеет MissBock охает",
+            "2,BLUSH,SILENCE,MissBock краснеет Наступает тишина",
+            "1,CALMFACE,SILENCE,MissBock спокойна и пьёт кофе Наступает тишина",
+            "0,CALMFACE,SILENCE,MissBock спокойна и пьёт кофе Наступает тишина",
+            "-1,CALMFACE,SILENCE,MissBock спокойна и пьёт кофе Наступает тишина",
     })
-    public void testStart(int level_of_emotionality, String name, FaceReaction faceReaction, Noise noise, String output) {
+    public void testStart(int level_of_emotionality, FaceReaction faceReaction, Noise noise, String output) {
         MissBockAction action = new MissBockAction();
-        ChangesMadeByPeople changes = action.start(level_of_emotionality, name);
+        ChangesMadeByPeople changes = action.start(level_of_emotionality, "MissBock");
         assertEquals(changes.faceReaction, faceReaction);
         assertEquals(changes.noise, noise);
         assertEquals(output, outputStreamCaptor.toString().replaceAll("\r\n", " ").trim());

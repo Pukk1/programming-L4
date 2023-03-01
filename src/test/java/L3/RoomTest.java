@@ -7,6 +7,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class RoomTest {
 
     @Test
-    void startActionInRoom() {
+    void testStartActionInRoom() {
     }
 }

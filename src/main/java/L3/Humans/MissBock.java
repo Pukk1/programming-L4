@@ -35,11 +35,7 @@ public class MissBock extends Human {
 
     //    метод вызываемый из room для проверки повернулась ли Мисс Бок
     public boolean isMissBockTurn() {
-        if (missBockTurn == true) {
-            return true;
-        } else {
-            return false;
-        }
+        return missBockTurn;
     }
 
 

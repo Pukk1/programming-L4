@@ -5,6 +5,7 @@ import L3.FaceReaction;
 import L3.Noise;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -42,5 +43,14 @@ class MissBockActionTest {
         assertEquals(changes.faceReaction, faceReaction);
         assertEquals(changes.noise, noise);
         assertEquals(output, outputStreamCaptor.toString().replaceAll("\r\n", " ").trim());
+    }
+
+    @Test
+    public void testNaming() {
+        MissBockAction missBockAction = new MissBockAction();
+        MissBockAction action = new MissBockAction();
+        String testName = "MissBockName";
+        action.start(0, testName);
+        assertEquals(testName, action.getName());
     }
 }

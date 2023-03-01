@@ -77,4 +77,8 @@ public class MissBockAction implements HumanAction {
             return (false);
         }
     }
+
+    public String getName() {
+        return name;
+    }
 }

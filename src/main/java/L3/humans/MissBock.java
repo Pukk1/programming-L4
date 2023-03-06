@@ -1,39 +1,30 @@
 package L3.humans;
 
 import L3.action.MissBockAction;
-import L3.data.Reactions;
-import L3.data.DataFromRoom;
+import L3.data.ReactionsData;
+import L3.data.RoomStateData;
 import L3.reaction.MissBockReaction;
 import L3.reaction.PrintReaction;
 import L3.reaction.enums.FaceReaction;
 import L3.reaction.enums.NoiseReaction;
+import org.jetbrains.annotations.NotNull;
 
 public class MissBock extends Human implements PrintReaction {
+    private int levelOfEmotionality = 0;
 
-
-    //    поле уровня эмоциональности
-    private int level_of_emotionality = 0;
-
-    public MissBock(String name) {
+    public MissBock(@NotNull String name) {
         super(name);
     }
 
     @Override
-    public Reactions reactToRoomState(DataFromRoom dataFromRoom) {
-        MissBockReaction missBockReaction = new MissBockReaction(dataFromRoom);
-        MissBockAction missBockAction = new MissBockAction();
-
-//        запускаем реакцию Фрекен Бок, что получить изменение уровня эмоциональности
-        level_of_emotionality = level_of_emotionality + missBockReaction.react();
-
-//        запускаем действия, производимые Фрекен Бок, которые возвращают изменения в состоянии комнаты
-//        возвращает изменения
-        return missBockAction.doAction(level_of_emotionality);
+    public ReactionsData reactToRoomState(RoomStateData roomStateData) {
+        MissBockReaction missBockReaction = new MissBockReaction(roomStateData);
+        levelOfEmotionality += missBockReaction.reactToRoomState();
+        return new MissBockAction().doAction(levelOfEmotionality);
     }
 
-    //    метод вызываемый из room для проверки повернулась ли Мисс Бок
     public boolean isMissBockTurn() {
-        return level_of_emotionality > 5;
+        return levelOfEmotionality > 5;
     }
 
     public void printTurn() {
@@ -48,8 +39,6 @@ public class MissBock extends Human implements PrintReaction {
             System.out.println(getName() + " спокойна и пьёт кофе");
         }
     }
-
-    ;
 
     @Override
     public void printNoiseReaction(NoiseReaction noiseReaction) {
@@ -69,5 +58,13 @@ public class MissBock extends Human implements PrintReaction {
     public String toString() {
         return ("Это объект missBock, который реагирует на происходящее и в зависимости от этого принимает какие-то " +
                 "действия и сам изменяет среду. Может повернуться и спалить Карлсона. Имеет хэш: " + hashCode());
+    }
+
+    public int getLevelOfEmotionality() {
+        return levelOfEmotionality;
+    }
+
+    public void setLevelOfEmotionality(int levelOfEmotionality) {
+        this.levelOfEmotionality = levelOfEmotionality;
     }
 }

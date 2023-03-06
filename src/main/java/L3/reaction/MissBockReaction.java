@@ -1,56 +1,59 @@
 package L3.reaction;
 
-import L3.data.DataFromRoom;
+import L3.data.RoomStateData;
 import L3.reaction.enums.FaceReaction;
 import L3.reaction.enums.NoiseReaction;
+import org.jetbrains.annotations.NotNull;
 
 public class MissBockReaction implements HumanReaction {
 
+    @NotNull
     private final FaceReaction faceReaction;
+    @NotNull
     private final NoiseReaction noiseReaction;
 
-    public MissBockReaction(FaceReaction faceReaction, NoiseReaction noiseReaction) {
+    public MissBockReaction(@NotNull FaceReaction faceReaction, @NotNull NoiseReaction noiseReaction) {
         this.faceReaction = faceReaction;
         this.noiseReaction = noiseReaction;
     }
 
-    public MissBockReaction(DataFromRoom dataFromRoom) {
-        this(dataFromRoom.getFaceReaction(), dataFromRoom.getNoiseReaction());
+    public MissBockReaction(RoomStateData roomStateData) {
+        this(roomStateData.getFaceReaction(), roomStateData.getNoiseReaction());
     }
 
     @Override
-    public int react() {
-        return (excite() + settleDown());
+    public int reactToRoomState() {
+        return excite() + calming();
     }
 
 
-    private int settleDown() {
-        int change_level_of_emotionality = 0;
+    private int calming() {
+        int changeLevelOfEmotionality = 0;
 
         if (faceReaction == FaceReaction.CALMFACE) {
-            change_level_of_emotionality--;
+            changeLevelOfEmotionality--;
         }
         if (noiseReaction == NoiseReaction.SILENCE) {
-            change_level_of_emotionality--;
+            changeLevelOfEmotionality--;
         }
 
-        return change_level_of_emotionality;
+        return changeLevelOfEmotionality;
     }
 
 
     private int excite() {
-        int change_level_of_emotionality = 0;
+        int changeLevelOfEmotionality = 0;
 
         if (faceReaction == FaceReaction.SMILE) {
-            change_level_of_emotionality += 2;
+            changeLevelOfEmotionality += 2;
         }
         if (noiseReaction == NoiseReaction.LAUGHTER) {
-            change_level_of_emotionality += 2;
+            changeLevelOfEmotionality += 2;
         }
         if (noiseReaction == NoiseReaction.GROAN) {
-            change_level_of_emotionality += 10;
+            changeLevelOfEmotionality += 10;
         }
-        return change_level_of_emotionality;
+        return changeLevelOfEmotionality;
     }
 
     @Override
@@ -75,10 +78,6 @@ public class MissBockReaction implements HumanReaction {
         } else {
             System.out.println("Объекты не принадлежат одному и тому же человеку");
         }
-        if (hashCode() == obj.hashCode()) {
-            return (true);
-        } else {
-            return (false);
-        }
+        return hashCode() == obj.hashCode();
     }
 }

@@ -1,69 +1,79 @@
 package L3.reaction;
 
-import L3.data.DataFromRoom;
+import L3.data.RoomStateData;
 import L3.reaction.enums.FaceReaction;
 import L3.reaction.enums.NoiseReaction;
+import org.jetbrains.annotations.NotNull;
 
 public class SmallBoyReaction implements HumanReaction {
 
-    private final int number_of_cakes;
-    private final int start_number_of_cakes;
+    private final int numberOfCakes;
+    private final int startNumberOfCakes;
+    @NotNull
     private final FaceReaction faceReaction;
+    @NotNull
     private final NoiseReaction noiseReaction;
 
-    public SmallBoyReaction(int number_of_cakes, int start_number_of_cakes, FaceReaction faceReaction, NoiseReaction noiseReaction) {
-        this.number_of_cakes = number_of_cakes;
-        this.start_number_of_cakes = start_number_of_cakes;
+    public SmallBoyReaction(int numberOfCakes, int startNumberOfCakes, @NotNull FaceReaction faceReaction, @NotNull NoiseReaction noiseReaction) {
+        if (numberOfCakes < 0) {
+            throw new IllegalArgumentException("numberOfCakes should be bigger than 0");
+        }
+        if (numberOfCakes > startNumberOfCakes) {
+            throw new IllegalArgumentException("numberOfCakes can't be bigger then startNumberOfCakes");
+        }
+
+        this.numberOfCakes = numberOfCakes;
+        this.startNumberOfCakes = startNumberOfCakes;
         this.faceReaction = faceReaction;
         this.noiseReaction = noiseReaction;
     }
 
-    public SmallBoyReaction(DataFromRoom dataFromRoom) {
-        this(dataFromRoom.getNumberOfCakes(), dataFromRoom.getStartNumberOfCakes(), dataFromRoom.getFaceReaction(), dataFromRoom.getNoiseReaction());
+    public SmallBoyReaction(RoomStateData roomStateData) {
+        this(roomStateData.getNumberOfCakes(), roomStateData.getStartNumberOfCakes(), roomStateData.getFaceReaction(), roomStateData.getNoiseReaction());
     }
 
     @Override
-    public int react() {
-        return excite() + settleDown();
+    public int reactToRoomState() {
+        return excite() + calming();
     }
 
 
-    private int settleDown() {
-        int change_level_of_emotionality = 0;
+    private int calming() {
+        int changeLevelOfEmotionality = 0;
 
         if (faceReaction == FaceReaction.CALMFACE) {
-            change_level_of_emotionality--;
+            changeLevelOfEmotionality--;
         }
         if (noiseReaction == NoiseReaction.SILENCE) {
-            change_level_of_emotionality--;
+            changeLevelOfEmotionality--;
         }
 
-        if (number_of_cakes == start_number_of_cakes) {
-            change_level_of_emotionality--;
+        if (numberOfCakes == startNumberOfCakes) {
+            changeLevelOfEmotionality--;
         }
-        return change_level_of_emotionality;
+        return changeLevelOfEmotionality;
     }
 
 
     private int excite() {
-        int change_level_of_emotionality = 0;
+        int changeLevelOfEmotionality = 0;
 
         if (faceReaction == FaceReaction.BLUSH) {
-            change_level_of_emotionality += 2;
+            changeLevelOfEmotionality += 2;
         }
         if (noiseReaction == NoiseReaction.GROAN) {
-            change_level_of_emotionality += 2;
+            changeLevelOfEmotionality += 2;
         }
         if (noiseReaction == NoiseReaction.GRUNT) {
-            change_level_of_emotionality += 10;
+            changeLevelOfEmotionality += 10;
         }
-        change_level_of_emotionality += start_number_of_cakes - number_of_cakes;
-        return change_level_of_emotionality;
+        changeLevelOfEmotionality += startNumberOfCakes - numberOfCakes;
+        return changeLevelOfEmotionality;
     }
 
     @Override
     public int hashCode() {
-        return (20);
+        return 20;
     }
 
     @Override
@@ -83,10 +93,6 @@ public class SmallBoyReaction implements HumanReaction {
         } else {
             System.out.println("Объекты не принадлежат одному и тому же человеку");
         }
-        if (hashCode() == obj.hashCode()) {
-            return (true);
-        } else {
-            return (false);
-        }
+        return hashCode() == obj.hashCode();
     }
 }

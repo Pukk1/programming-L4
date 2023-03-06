@@ -1,47 +1,47 @@
 package L3;
 
-import L3.data.DataFromRoom;
-import L3.data.Reactions;
+import L3.data.ReactionsData;
+import L3.data.RoomStateData;
 import L3.humans.MissBock;
 import L3.humans.SmallBoy;
 import L3.reaction.enums.FaceReaction;
 import L3.reaction.enums.NoiseReaction;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 
 public class Room {
 
-    //    создадим класс "обстановка в комнате"
-    private ConditionInRoom condition = new ConditionInRoom();
-//    private Room.ConditionInRoom conditionInRoom = new Room.ConditionInRoom();
+    @NotNull
+    private final ConditionInRoom condition;
 
 
     public Room(MissBock missBock, SmallBoy smallBoy, int startNumberOfCakesInRoom) {
-        condition.addPersons(missBock, smallBoy);
-        condition.numberOfCakes = startNumberOfCakesInRoom;
+        this.condition = new ConditionInRoom(startNumberOfCakesInRoom, smallBoy, missBock);
     }
 
     public void startHistory() {
+        SmallBoy smallBoy = condition.smallBoy;
+        MissBock missBock = condition.missBock;
+
         while (condition.numberOfCakes != 0) {
 
-//            карлсон решает, взять ли пирожок
             if (condition.isCarlsonGiveCake()) {
                 condition.carlsonGiveCake();
                 System.out.println("Карлсон взял пирожок");
             } else {
                 System.out.println("Карлсон не взял пирожок");
             }
-//            вызывается Малыш, которому передаются данные о комнате,
-//            после возвращаемое малышом значение (Changes) передаётся в
-//            метод, устанавливающий изменения в комнате
-            condition.setChanges(condition.smallBoy.reactToRoomState(condition.getDataFromRoom()));
-            condition.smallBoy.printFaceReaction(condition.faceReactionInRoom);
-            condition.smallBoy.printNoiseReaction(condition.noiseReactionInRoom);
 
-//            аналогично предыдущему пункту
-            condition.setChanges(condition.missBock.reactToRoomState(condition.getDataFromRoom()));
-            condition.missBock.printFaceReaction(condition.faceReactionInRoom);
-            condition.missBock.printNoiseReaction(condition.noiseReactionInRoom);
+            ReactionsData boyReaction = smallBoy.reactToRoomState(condition.getDataFromRoom());
+            condition.setChanges(boyReaction);
+            smallBoy.printFaceReaction(condition.faceReactionInRoom);
+            smallBoy.printNoiseReaction(condition.noiseReactionInRoom);
+
+            ReactionsData missReaction = missBock.reactToRoomState(condition.getDataFromRoom());
+            condition.setChanges(missReaction);
+            missBock.printFaceReaction(condition.faceReactionInRoom);
+            missBock.printNoiseReaction(condition.noiseReactionInRoom);
 
             System.out.println();
             if (condition.missBock.isMissBockTurn()) {
@@ -55,25 +55,32 @@ public class Room {
         }
     }
 
-    //    Вложенный non-static класс
-//    обстановка в комнате
-    private class ConditionInRoom {
+    public @NotNull ConditionInRoom getCondition() {
+        return condition;
+    }
 
-        //        все данные о комнате
-        private int numberOfCakes = 7;
-        private final int startNumberOfCakes = numberOfCakes;
+    public class ConditionInRoom {
+        @NotNull
+        private final SmallBoy smallBoy;
+        @NotNull
+        private final MissBock missBock;
+        private final int startNumberOfCakes;
+        @NotNull
         private NoiseReaction noiseReactionInRoom = NoiseReaction.SILENCE;
+        @NotNull
         private FaceReaction faceReactionInRoom = FaceReaction.CALMFACE;
-        private final boolean carlsonInRoom = true;
+        private int numberOfCakes;
         private boolean isCarlsonSpalen = false;
-        private SmallBoy smallBoy;
-        private MissBock missBock;
 
+        private ConditionInRoom(int startNumberOfCakes, @NotNull SmallBoy smallBoy, @NotNull MissBock missBock) {
+            this.startNumberOfCakes = startNumberOfCakes;
+            this.numberOfCakes = startNumberOfCakes;
+            this.smallBoy = smallBoy;
+            this.missBock = missBock;
+        }
 
-        //        метод предназначен для сбора всех данных о комнате в объект класса Data,
-//        котрорый потом передаётся в оюъект одного из наследников класса Human
-        public DataFromRoom getDataFromRoom() {
-            return new DataFromRoom(
+        public RoomStateData getDataFromRoom() {
+            return new RoomStateData(
                     numberOfCakes,
                     startNumberOfCakes,
                     noiseReactionInRoom,
@@ -81,15 +88,9 @@ public class Room {
             );
         }
 
-        //        метод устанавливает изменения в комнате, которые произошли из-за действий людей в ней
-        public void setChanges(Reactions changes) {
+        public void setChanges(ReactionsData changes) {
             faceReactionInRoom = changes.getFaceReaction();
             noiseReactionInRoom = changes.getNoiseReaction();
-        }
-
-        public void addPersons(MissBock missBock, SmallBoy smallBoy) {
-            this.missBock = missBock;
-            this.smallBoy = smallBoy;
         }
 
         public void carlsonGiveCake() {
@@ -107,6 +108,50 @@ public class Room {
 
         public boolean isCarlsonGoOut() {
             return !isCarlsonSpalen & numberOfCakes == 0;
+        }
+
+        public @NotNull SmallBoy getSmallBoy() {
+            return smallBoy;
+        }
+
+        public @NotNull MissBock getMissBock() {
+            return missBock;
+        }
+
+        public int getStartNumberOfCakes() {
+            return startNumberOfCakes;
+        }
+
+        public @NotNull NoiseReaction getNoiseReactionInRoom() {
+            return noiseReactionInRoom;
+        }
+
+        public void setNoiseReactionInRoom(@NotNull NoiseReaction noiseReactionInRoom) {
+            this.noiseReactionInRoom = noiseReactionInRoom;
+        }
+
+        public @NotNull FaceReaction getFaceReactionInRoom() {
+            return faceReactionInRoom;
+        }
+
+        public void setFaceReactionInRoom(@NotNull FaceReaction faceReactionInRoom) {
+            this.faceReactionInRoom = faceReactionInRoom;
+        }
+
+        public int getNumberOfCakes() {
+            return numberOfCakes;
+        }
+
+        public void setNumberOfCakes(int numberOfCakes) {
+            this.numberOfCakes = numberOfCakes;
+        }
+
+        public boolean isCarlsonSpalen() {
+            return isCarlsonSpalen;
+        }
+
+        public void setCarlsonSpalen(boolean carlsonSpalen) {
+            isCarlsonSpalen = carlsonSpalen;
         }
     }
 }

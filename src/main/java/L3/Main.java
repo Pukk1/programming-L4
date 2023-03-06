@@ -18,8 +18,8 @@ public class Main {
         }
     }
 
-    private static class StoryInit {
-        private static final Scanner scanner = new Scanner(System.in);
+    public static class StoryInit {
+        private static Scanner scanner;
 
         private static String initHumanName(StoryCharacter storyCharacter) throws NameInSmallLettersException {
             System.out.println("Какое имя будет у объекта класса " + storyCharacter.getHumanClassMap().getName() + " ?");
@@ -44,6 +44,7 @@ public class Main {
         }
 
         public static Room initRoom() throws NameInSmallLettersException {
+            scanner = new Scanner(System.in);
             String missBockName = initHumanName(StoryCharacter.MISS_BOCK);
             MissBock missBock = new MissBock(missBockName);
 

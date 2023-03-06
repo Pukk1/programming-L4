@@ -1,14 +1,17 @@
 package L3.humans;
 
-import L3.data.Reactions;
-import L3.data.DataFromRoom;
+import L3.data.ReactionsData;
+import L3.data.RoomStateData;
+import org.jetbrains.annotations.NotNull;
 
 public abstract class Human {
 
-    public abstract Reactions reactToRoomState(DataFromRoom dataFromRoom);
+    public abstract ReactionsData reactToRoomState(RoomStateData roomStateData);
+
+    @NotNull
     private final String name;
 
-    public Human(String name) {
+    public Human(@NotNull String name) {
         this.name = name;
     }
 
@@ -27,7 +30,7 @@ public abstract class Human {
         return hashCode() == obj.hashCode();
     }
 
-    public String getName() {
+    public @NotNull String getName() {
         return name;
     }
 }

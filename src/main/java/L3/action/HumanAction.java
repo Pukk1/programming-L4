@@ -1,7 +1,7 @@
 package L3.action;
 
-import L3.data.Reactions;
+import L3.data.ReactionsData;
 
 public interface HumanAction {
-    Reactions doAction(int level_of_emotionality);
+    ReactionsData doAction(int levelOfEmotionality);
 }

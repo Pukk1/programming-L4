@@ -1,29 +1,29 @@
 package L3.action;
 
-import L3.data.Reactions;
+import L3.data.ReactionsData;
 import L3.reaction.enums.FaceReaction;
 import L3.reaction.enums.NoiseReaction;
 
 public class SmallBoyAction implements HumanAction {
 
     @Override
-    public Reactions doAction(int level_of_emotionality) {
+    public ReactionsData doAction(int levelOfEmotionality) {
         NoiseReaction noiseReaction;
         FaceReaction faceReaction;
 
-        if (level_of_emotionality > 1) {
+        if (levelOfEmotionality > 1) {
             faceReaction = FaceReaction.SMILE;
         } else {
             faceReaction = FaceReaction.CALMFACE;
         }
 
-        if (level_of_emotionality > 2) {
+        if (levelOfEmotionality > 2) {
             noiseReaction = NoiseReaction.LAUGHTER;
         } else {
             noiseReaction = NoiseReaction.SILENCE;
         }
 
-        return new Reactions(noiseReaction, faceReaction);
+        return new ReactionsData(noiseReaction, faceReaction);
     }
 
     @Override

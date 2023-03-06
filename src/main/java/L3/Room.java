@@ -1,30 +1,32 @@
 package L3;
 
-import L3.Humans.MissBock;
-import L3.Humans.SmallBoy;
+import L3.data.DataFromRoom;
+import L3.data.Reactions;
+import L3.humans.MissBock;
+import L3.humans.SmallBoy;
+import L3.reaction.enums.FaceReaction;
+import L3.reaction.enums.NoiseReaction;
 
 import java.util.Random;
 
 public class Room {
 
     //    создадим класс "обстановка в комнате"
-    private ConditionInRoom conditionInRoom = new ConditionInRoom();
+    private ConditionInRoom condition = new ConditionInRoom();
 //    private Room.ConditionInRoom conditionInRoom = new Room.ConditionInRoom();
 
 
     public Room(MissBock missBock, SmallBoy smallBoy, int startNumberOfCakesInRoom) {
-        conditionInRoom.addPersons(missBock, smallBoy);
-        conditionInRoom.numberOfCakes = startNumberOfCakesInRoom;
+        condition.addPersons(missBock, smallBoy);
+        condition.numberOfCakes = startNumberOfCakesInRoom;
     }
 
-    public void startActionInRoom(String missBockName, String smallBoyName) {
-
-
-        while (conditionInRoom.numberOfCakes != 0) {
+    public void startHistory() {
+        while (condition.numberOfCakes != 0) {
 
 //            карлсон решает, взять ли пирожок
-            if (conditionInRoom.isCarlsonGiveCake()) {
-                conditionInRoom.carlsonGiveCake();
+            if (condition.isCarlsonGiveCake()) {
+                condition.carlsonGiveCake();
                 System.out.println("Карлсон взял пирожок");
             } else {
                 System.out.println("Карлсон не взял пирожок");
@@ -32,55 +34,57 @@ public class Room {
 //            вызывается Малыш, которому передаются данные о комнате,
 //            после возвращаемое малышом значение (Changes) передаётся в
 //            метод, устанавливающий изменения в комнате
-            conditionInRoom.setChanges(conditionInRoom.smallBoy.looksListensReacts(conditionInRoom.getDataFromRoom(), smallBoyName));
+            condition.setChanges(condition.smallBoy.reactToRoomState(condition.getDataFromRoom()));
+            condition.smallBoy.printFaceReaction(condition.faceReactionInRoom);
+            condition.smallBoy.printNoiseReaction(condition.noiseReactionInRoom);
 
 //            аналогично предыдущему пункту
-            conditionInRoom.setChanges(conditionInRoom.missBock.looksListensReacts(conditionInRoom.getDataFromRoom(), missBockName));
+            condition.setChanges(condition.missBock.reactToRoomState(condition.getDataFromRoom()));
+            condition.missBock.printFaceReaction(condition.faceReactionInRoom);
+            condition.missBock.printNoiseReaction(condition.noiseReactionInRoom);
 
-            System.out.println("");
-
-            if (conditionInRoom.missBock.isMissBockTurn()) {
-                System.out.println(missBockName + " резко поворачивается. Карлсон был спален!!!");
-                conditionInRoom.carlsonSpalen();
+            System.out.println();
+            if (condition.missBock.isMissBockTurn()) {
+                condition.missBock.printTurn();
+                condition.carlsonSpalen();
             }
 
         }
-        if (conditionInRoom.isCarlsonGoOut()) {
+        if (condition.isCarlsonGoOut()) {
             System.out.println("Карлсон ушёл с пирожками");
         }
     }
 
-    //=============================================================
-//    Вложенный non-static класс
+    //    Вложенный non-static класс
 //    обстановка в комнате
     private class ConditionInRoom {
 
         //        все данные о комнате
         private int numberOfCakes = 7;
         private final int startNumberOfCakes = numberOfCakes;
-        private Noise noiseInRoom = Noise.SILENCE;
-        private FaceReaction faceInRoom = FaceReaction.CALMFACE;
-        private boolean carlsonInRoom = true;
+        private NoiseReaction noiseReactionInRoom = NoiseReaction.SILENCE;
+        private FaceReaction faceReactionInRoom = FaceReaction.CALMFACE;
+        private final boolean carlsonInRoom = true;
         private boolean isCarlsonSpalen = false;
         private SmallBoy smallBoy;
         private MissBock missBock;
 
 
-        //    метод предназначен для сбора всех данных о комнате в объект класса Data,
-//    котрорый потом передаётся в оюъект одного из наследников класса Human
+        //        метод предназначен для сбора всех данных о комнате в объект класса Data,
+//        котрорый потом передаётся в оюъект одного из наследников класса Human
         public DataFromRoom getDataFromRoom() {
-            DataFromRoom dataFromRoom = new DataFromRoom();
-            dataFromRoom.faceReaction = faceInRoom;
-            dataFromRoom.noise = noiseInRoom;
-            dataFromRoom.number_of_cakes = numberOfCakes;
-            dataFromRoom.start_number_of_cakes = startNumberOfCakes;
-            return dataFromRoom;
+            return new DataFromRoom(
+                    numberOfCakes,
+                    startNumberOfCakes,
+                    noiseReactionInRoom,
+                    faceReactionInRoom
+            );
         }
 
-        //    метод устанавливает изменения в комнате, которые произошли из-за действий людей в ней
-        public void setChanges(ChangesMadeByPeople changes) {
-            faceInRoom = changes.faceReaction;
-            noiseInRoom = changes.noise;
+        //        метод устанавливает изменения в комнате, которые произошли из-за действий людей в ней
+        public void setChanges(Reactions changes) {
+            faceReactionInRoom = changes.getFaceReaction();
+            noiseReactionInRoom = changes.getNoiseReaction();
         }
 
         public void addPersons(MissBock missBock, SmallBoy smallBoy) {
@@ -102,11 +106,7 @@ public class Room {
         }
 
         public boolean isCarlsonGoOut() {
-            if (isCarlsonSpalen == false & numberOfCakes == 0) {
-                return true;
-            } else {
-                return false;
-            }
+            return !isCarlsonSpalen & numberOfCakes == 0;
         }
     }
 }

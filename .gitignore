@@ -2,4 +2,6 @@
 /out/
 /.idea/
 /target/
+/target
+/.idea
 L3.iml

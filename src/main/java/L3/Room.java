@@ -126,32 +126,16 @@ public class Room {
             return noiseReactionInRoom;
         }
 
-        public void setNoiseReactionInRoom(@NotNull NoiseReaction noiseReactionInRoom) {
-            this.noiseReactionInRoom = noiseReactionInRoom;
-        }
-
         public @NotNull FaceReaction getFaceReactionInRoom() {
             return faceReactionInRoom;
-        }
-
-        public void setFaceReactionInRoom(@NotNull FaceReaction faceReactionInRoom) {
-            this.faceReactionInRoom = faceReactionInRoom;
         }
 
         public int getNumberOfCakes() {
             return numberOfCakes;
         }
 
-        public void setNumberOfCakes(int numberOfCakes) {
-            this.numberOfCakes = numberOfCakes;
-        }
-
         public boolean isCarlsonSpalen() {
             return isCarlsonSpalen;
-        }
-
-        public void setCarlsonSpalen(boolean carlsonSpalen) {
-            isCarlsonSpalen = carlsonSpalen;
         }
     }
 }

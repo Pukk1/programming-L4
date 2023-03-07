@@ -27,29 +27,8 @@ public class SmallBoyAction implements HumanAction {
     }
 
     @Override
-    public int hashCode() {
-        //3 - HumanAction, 0 - SmallBoy
-        return 30;
-    }
-
-    @Override
     public String toString() {
         return "Это объект smallBoyAction, Который в зависимости от уровня эмоциональности smallBoy порождает" +
                 " действия, которые изменяют окружающую среду. Имеет хэш: " + hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (hashCode() / 10 == obj.hashCode() / 10) {
-            System.out.println("Объекты являются наследниками одного класса");
-        } else {
-            System.out.println("Объекты не являются наследниками одного класса");
-        }
-        if (hashCode() % 10 == obj.hashCode() % 10) {
-            System.out.println("Объекты принадлежат одному и тому же человеку");
-        } else {
-            System.out.println("Объекты не принадлежат одному и тому же человеку");
-        }
-        return hashCode() == obj.hashCode();
     }
 }

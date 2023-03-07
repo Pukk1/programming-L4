@@ -57,27 +57,7 @@ public class MissBockReaction implements HumanReaction {
     }
 
     @Override
-    public int hashCode() {
-        return (21);
-    }
-
-    @Override
     public String toString() {
         return ("Это объект missBockReaction, который реагирует на происходящее и возвращает уровень эмоциональности. Имеет хэш: " + hashCode());
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (hashCode() / 10 == obj.hashCode() / 10) {
-            System.out.println("Объекты являются наследниками одного класса");
-        } else {
-            System.out.println("Объекты не являются наследниками одного класса");
-        }
-        if (hashCode() % 10 == obj.hashCode() % 10) {
-            System.out.println("Объекты принадлежат одному и тому же человеку");
-        } else {
-            System.out.println("Объекты не принадлежат одному и тому же человеку");
-        }
-        return hashCode() == obj.hashCode();
     }
 }

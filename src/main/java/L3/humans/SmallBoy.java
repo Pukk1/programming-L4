@@ -41,11 +41,6 @@ public class SmallBoy extends Human implements PrintReaction {
     }
 
     @Override
-    public int hashCode() {
-        return (10);
-    }
-
-    @Override
     public String toString() {
         return ("Это объект smallBoy, который реагирует на происходящее и в зависимости от этого принимает какие-то действия и сам изменяет среду. Имеет хэш: " + hashCode());
     }

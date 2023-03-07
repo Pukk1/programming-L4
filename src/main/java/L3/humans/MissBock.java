@@ -50,18 +50,9 @@ public class MissBock extends Human implements PrintReaction {
     }
 
     @Override
-    public int hashCode() {
-        return (11); //1 - Human, 1 - MissBock
-    }
-
-    @Override
     public String toString() {
         return ("Это объект missBock, который реагирует на происходящее и в зависимости от этого принимает какие-то " +
                 "действия и сам изменяет среду. Может повернуться и спалить Карлсона. Имеет хэш: " + hashCode());
-    }
-
-    public int getLevelOfEmotionality() {
-        return levelOfEmotionality;
     }
 
     public void setLevelOfEmotionality(int levelOfEmotionality) {

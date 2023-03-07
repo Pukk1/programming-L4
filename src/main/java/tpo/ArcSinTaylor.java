@@ -13,13 +13,4 @@ public class ArcSinTaylor {
         }
         return result;
     }
-
-    public static void main(String[] args) {
-        double x = 0.5;
-        double eps = 1e-6;
-        double arcsin = calculateArcSin(x, eps);
-        System.out.println("arcsin(" + x + ") = " + arcsin);
-
-        System.out.println(Math.asin(0.5));
-    }
 }

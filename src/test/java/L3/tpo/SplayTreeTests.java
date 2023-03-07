@@ -42,6 +42,18 @@ public class SplayTreeTests {
     }
 
     @Test
+    public void testSplay() {
+        SplayTree<Integer, String> splayTree = new SplayTree<>();
+
+        splayTree.put(1, "one");
+        splayTree.put(2, "two");
+        splayTree.put(3, "three");
+
+        assertEquals("one", splayTree.get(1));
+        assertEquals("three", splayTree.get(3));
+    }
+
+    @Test
     public void testSize() {
         SplayTree<Integer, String> splayTree = new SplayTree<>();
 
